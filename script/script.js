@@ -38,6 +38,7 @@ const showCategory=(category)=>{
         if(target.localName==="li"){
             target.classList.add("bg-green-700");
         }
+       showAllCategoryByName(e.target.id);
 
         
     })
@@ -59,7 +60,7 @@ const fetchAllComponent=()=>{
 const showAllComponent=(data)=>{
     allComponentParent.innerHTML="";
     data.plants.forEach(element=>{
-        console.log(element);
+        // console.log(element);
         allComponentParent.innerHTML += `
 
         <div class="shadow-lg  rounded-xl py-5 px-5" >
@@ -76,6 +77,42 @@ const showAllComponent=(data)=>{
         `;
         
     })
+}
+// fetch different types by category 
+const showAllCategoryByName=(id)=>{
+    const url =`https://openapi.programming-hero.com/api/category/${id}`;
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => displayByNameCategory(data));
+     
+   
+}
+
+
+
+const displayByNameCategory=(card)=>{
+    allComponentParent.innerHTML="";
+
+    // console.log(card);
+    card.plants.forEach(element=>{
+        console.log(element);
+         allComponentParent.innerHTML += `
+          <div class="shadow-lg  rounded-xl py-5 px-5" >
+          <img class="h-[300px]  rounded-t-xl w-full" src="${element.image}" alt="">
+          <h1 class="font-bold mt-5">${element.name}</h1>
+          <p class="">${element.description}</p>
+          <div class="flex justify-between mt-4">
+            <button class="border-2 border-green-400 px-4 rounded-xl  text-green-400">${element.category}</button>
+            <p>$ <span>${element.price}</span></p>
+          </div>
+          <button class="w-full mt-4 bg-green-700 py-2 rounded-xl">Add to Cart</button>
+        </div>
+
+
+         `;
+        
+    })
+
 }
 fetchAllComponent();
 
