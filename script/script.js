@@ -4,6 +4,7 @@ const allComponentParent = document.getElementById("allComponentParent");
 const newsModalDetails = document.getElementById("news_modal_details");
 const eachModal = document.getElementById("modalId");
 const cartParent = document.getElementById("cartParent");
+const allPrice=[];
 
 
 
@@ -111,7 +112,7 @@ const displayByNameCategory=(card)=>{
           <p class="">${element.description}</p>
           <div class="flex justify-between mt-4">
             <button class="border-2 border-green-400 px-4 rounded-xl  text-green-400">${element.category}</button>
-            <p>$ <span>${element.price}</span></p>
+            <p>$<span>${element.price}</span></p>
           </div>
           <button    class="w-full mt-4 bg-green-700 py-2 rounded-xl">Add to Cart</button>
         </div>
@@ -122,13 +123,25 @@ const displayByNameCategory=(card)=>{
     })
 
 }
-
-    
+ let total = 0;
+     
    allComponentParent.addEventListener('click',(e)=>{
+   
     if(e.target.innerText==="Add to Cart"){
+      
         const title=e.target.parentNode.children[3].children[0].innerText;
         const treePrice=e.target.parentNode.children[3].children[1].innerText;
-        const totalPrice = document.getElementById("TotalPrice");
+      
+        let price = parseInt(treePrice.replace(/[^\d]/g, "")); 
+      
+     
+        
+        
+        total=total+price;
+       document.getElementById("totalPrice").innerText = total;
+
+
+      
        cartParent.innerHTML += `
        <div class="flex justify-between items-center mt-4">
    <div> <h1>${title}</h1>
@@ -139,9 +152,16 @@ const displayByNameCategory=(card)=>{
 </div>
 
        `;
+         
     }
    
-   })
+   });
+   cartParent.addEventListener("click", (e) => {
+     if (e.target.innerText === "Delete") {
+       e.target.parentElement.parentElement.remove();
+     }
+   });
+
 
 const showLoadDetails=(id)=>{
     // console.log(id);
