@@ -70,7 +70,7 @@ const showAllComponent=(data)=>{
         allComponentParent.innerHTML += `
 
         <div id="modalId" class="shadow-lg  rounded-xl py-5 px-5" >
-          <img class="h-[300px]  rounded-t-xl w-full" src="${element.image}" alt="">
+          <img class="h-[200px]  rounded-t-xl w-full" src="${element.image}" alt="">
           <h1 class="font-bold mt-5">${element.name}</h1>
           <p class="">${element.description}</p>
           <div class="flex justify-between mt-4">
@@ -107,7 +107,7 @@ const displayByNameCategory=(card)=>{
         //  console.log(element);
          allComponentParent.innerHTML += `
           <div  class="shadow-lg  rounded-xl py-5 px-5" >
-          <img class="h-[300px]  rounded-t-xl w-full" src="${element.image}" alt="">
+          <img class="h-[200px]  rounded-t-xl w-full" src="${element.image}" alt="">
           <h1  onclick="showLoadDetails(${element.id})" class="font-bold mt-5 cursor-pointer">${element.name}</h1>
           <p class="">${element.description}</p>
           <div class="flex justify-between mt-4">
@@ -143,11 +143,11 @@ const displayByNameCategory=(card)=>{
 
       
        cartParent.innerHTML += `
-       <div class="flex justify-between items-center mt-4">
+       <div class="flex justify-between items-center mt-4 bg-green-100 rounded-lg p-3">
    <div> <h1>${title}</h1>
   <p>${treePrice}</p>
   </div>
-  <div class=""><button class="btn btn-outline btn-error text-red-700">Delete</button></div>
+  <div class=""><button class="btn  btn-error text-red-700">Delete</button></div>
 
 </div>
 
@@ -158,7 +158,15 @@ const displayByNameCategory=(card)=>{
    });
    cartParent.addEventListener("click", (e) => {
      if (e.target.innerText === "Delete") {
+      
        e.target.parentElement.parentElement.remove();
+       const eachPrice=e.target.parentNode.parentNode.children[0].children[1].innerText;
+       const price = parseInt(eachPrice.replace(/[^\d]/g, "")); 
+        total = total - price;
+         document.getElementById("totalPrice").innerText = total;
+
+       
+
      }
    });
 
